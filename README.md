@@ -1,49 +1,14 @@
 
 # Request-Reply Messaging App
 
+MessagingServer.java - This class implements the server of the app. It contains the main class, which accepts the args[] array as an argument, where args[0] is the port_number. Additionally, the main connects the server with the clients using RMI.
 
+MessagingClient - This class implements the clients of the app. It also contains the main class, and accepts the args[] array as an argument, where args[0] is the IP, args[1] is the port_number, and the rest are related to the client’s requests. At the same time, the main connects the client with the server using RMI, and distinguishes cases of FN_ID(args[2]) for the client’s requests and calls the appropriate methods from the RemoteRMI class.
 
-Παντελεήμων Γραμματικοπουλος
+Message - The Message class represents a user’s message. Its private fields are countMessages, id_message, isRead, sender, receiver, body. This class contains its constructor, and various setters and getters for its private fields.
 
-ΑΕΜ 3631
+Account - The Account class represents a user’s account. Its private fields are username, authToken, messageBox. This class contains its constructor, and various setters and getters for its private fields.
 
+RMI - RMI is an interface. It extends Remote and contains the method signatures of RemoteRMI needed for the user’s requests.
 
-
-**MessagingServer.java -**
- Η κλάση αυτη υλοποιεί τον server του app.
- Περιέχει την main κλάση , η οποία δέχεται σαν  όρισμα τον πίνακα args[], που έχει το port_number(args[0]).
- Επίσης η main συνδέει τον server με τους clients, χρησιμοποιόντας το RMI.
-
-**MessagingClient -**
- Η κλάση αυτη υλοποιεί τον clients του app.
-Περιέχει και αυτη την main,
-και δέχεται σαν  όρισμα τον πίνακα args[], όπου το args[0] ειναι η ip , το args[1] είναι το port_number,
-και τα υπόλοιπα σχετίζονται με τα requests  του client.
-Παράλληλα, η main συνδέει τον client με τον server χρησιμοποιόντας RMI,
-και διακρίνει περιπτώσεις του FN_ID(args[2]) για τα requests του client και καλεί τις κατάλληλες μεθόδους από την κλάση RemoteRMI.
-
-
-**Message -**
-Η κλάση Message αντικατροπτίζει ένα μήνυμα ενός χρήστη. Τα private πεδία του είναι τα countMessages,id_message,
-isRead, sender, receiver, body. Η κλάση αυτή περιέχει τον κατασκευαστή της ,
- και διάφορους setters και getters για τα private πεδία της.
-
- **Account -**
-Η κλάση Account αντικατροπτίζει τον λογαριασμό ενός χρήστη. Τα private πεδία του είναι τα username, authToken, messageBox.
- Η κλάση αυτή περιέχει τον κατασκευαστή της ,
- και διάφορους setters και getters για τα private πεδία της.
-
-
-**RMI -** Η RMI είναι ένα interface.
- Κάνει extend την Remote και περιέχει τις υπογραφές των μεθόδων της RemoteRMI που χρειάζονται για τα requests του χρήστη.
-
-**RemoteRMI -** Η κλάση αυτή κάνει extend την UnicastRemoteObject και κάνει implement την RMI.
-Τα private πεδία της είναι το  ArrayList<Account> accounts που περιέχει τους λογαριασμούς των χρηστών
- και το systemExit που είναι το μήνυμα που θα εμφανιστεί στον χρήστη, μέσω τους getter του.
- Επίσης, η κλάση περιλαμβάνει τις μεθόδους που υλοποιούν τα αιτήματα του χρήστη,
- οι οποίες είναι η createAccount(String username), showAccounts(int authToken),
- sendMessage(int authToken, String recipient, String body), showInbox(int authToken), readMessage(int authToken, int id_message),
- deleteMessage(int authToken, int id_message).
- Παράλληλα για να διευκολυνθεί η υλοποίηση των παραπάνω υπάρχουν οι βοηθητικές μέθοδοι 
- removeFromMessageBox(ArrayList<Message> messageBox, Message messageToRemove),
- findUsername(int authToken), authTokenValid(int authToken), findMessageValid(int id_message, ArrayList<Message> messageBox)
+RemoteRMI - This class extends UnicastRemoteObject and implements RMI. Its private fields are ArrayList<Account> accounts, which contains the user accounts, and systemExit, which is the message that will be displayed to the user through its getter. Additionally, the class includes methods that implement the user’s requests, which are createAccount(String username), showAccounts(int authToken), sendMessage(int authToken, String recipient, String body), showInbox(int authToken), readMessage(int authToken, int id_message), deleteMessage(int authToken, int id_message). To facilitate the implementation of the above, there are also helper methods removeFromMessageBox(ArrayList<Message> messageBox, Message messageToRemove), findUsername(int authToken), authTokenValid(int authToken), findMessageValid(int id_message, ArrayList<Message> messageBox).
